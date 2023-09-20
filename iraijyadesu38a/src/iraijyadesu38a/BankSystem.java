@@ -42,8 +42,9 @@ public class BankSystem {
                             System.out.println("1. Check Balance");
                             System.out.println("2. Deposit");
                             System.out.println("3. Withdraw");
-                            System.out.println("4. Back to Main Menu");
-                            System.out.print("Please select an option (1/2/3/4): ");
+                            System.out.println("4. View Transaction History");
+                            System.out.println("5. Back to Main Menu");
+                            System.out.print("Please select an option (1/2/3/4/5): ");
                             int accountChoice = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
 
@@ -62,13 +63,16 @@ public class BankSystem {
                                     account.withdraw(withdrawalAmount);
                                     break;
                                 case 4:
+                                    account.viewTransactionHistory();
+                                    break;
+                                case 5:
                                     System.out.println("Returning to Main Menu.");
                                     break;
                                 default:
                                     System.out.println("Invalid choice. Please select a valid option.");
                             }
 
-                            if (accountChoice == 4) {
+                            if (accountChoice == 5) {
                                 break;
                             }
                         }

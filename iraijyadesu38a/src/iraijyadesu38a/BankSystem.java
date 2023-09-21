@@ -79,7 +79,7 @@ public class BankSystem {
                     }
                     break;
                 case 3:
-                    System.out.println("Thank you for using our banking system.");
+                    System.out.println("Thank you for using our 38a Bank System");
                     System.exit(0);
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");

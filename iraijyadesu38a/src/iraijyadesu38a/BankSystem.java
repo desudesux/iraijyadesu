@@ -11,8 +11,9 @@ public class BankSystem {
             System.out.println("\nBanking System Menu:");
             System.out.println("1. Create Account");
             System.out.println("2. Access Account");
-            System.out.println("3. Exit");
-            System.out.print("Please select an option (1/2/3): ");
+            System.out.println("3. Transfer Funds");
+            System.out.println("4. Exit");
+            System.out.print("Please select an option (1/2/3/4): ");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -78,7 +79,11 @@ public class BankSystem {
                         }
                     }
                     break;
-                case 3:
+                case 3: // Transfer Funds
+                    FundTransfer.transferFunds(bank, scanner);
+
+                    break;
+                case 4:
                     System.out.println("Thank you for using our 38a Bank System");
                     System.exit(0);
                 default:

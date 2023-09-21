@@ -22,8 +22,20 @@ public class FundTransfer {
                 System.out.print("Enter the amount to transfer: $");
                 double transferAmount = scanner.nextDouble();
                 if (senderAccount.getBalance() >= transferAmount) {
+                    // Perform the transfer
                     senderAccount.withdraw(transferAmount);
                     recipientAccount.deposit(transferAmount);
+
+                    // Create a transaction for the sender
+                    Transaction senderTransaction = new Transaction("Fund transfer to " + recipientAccountNumber, -transferAmount, senderAccountNumber, recipientAccountNumber);
+
+                    // Create a transaction for the recipient
+                    Transaction recipientTransaction = new Transaction("Fund transfer from " + senderAccountNumber, transferAmount, senderAccountNumber, recipientAccountNumber);
+
+                    // Add the transactions to the respective accounts
+                    senderAccount.addTransaction(senderTransaction);
+                    recipientAccount.addTransaction(recipientTransaction);
+
                     System.out.println("Funds transferred successfully.");
                 } else {
                     System.out.println("Insufficient funds for the transfer.");

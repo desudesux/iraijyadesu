@@ -18,14 +18,16 @@ public class BankAccount {
 
     public void deposit(double amount) {
         balance += amount;
-        transactionHistory.add(new Transaction("Deposit", amount));
+        Transaction depositTransaction = new Transaction("Deposit", amount, accountNumber, accountNumber);
+        addTransaction(depositTransaction);
         System.out.println("Deposited: $" + amount);
     }
 
     public void withdraw(double amount) {
         if (balance >= amount) {
             balance -= amount;
-            transactionHistory.add(new Transaction("Withdrawal", -amount));
+            Transaction withdrawalTransaction = new Transaction("Withdrawal", -amount, accountNumber, accountNumber);
+            addTransaction(withdrawalTransaction);
             System.out.println("Withdrawn: $" + amount);
         } else {
             System.out.println("Insufficient funds.");
@@ -40,8 +42,19 @@ public class BankAccount {
 
     public void viewTransactionHistory() {
         System.out.println("Transaction History for Account: " + accountNumber);
+
+        System.out.println("Deposits and Withdrawals:");
         for (Transaction transaction : transactionHistory) {
-            System.out.println(transaction.toString());
+            if (transaction.getAmount() != 0 && !transaction.getDescription().startsWith("Fund transfer")) {
+                System.out.println(transaction.toString());
+            }
+        }
+
+        System.out.println("\nFund Transfers:");
+        for (Transaction transaction : transactionHistory) {
+            if (transaction.getDescription().startsWith("Fund transfer")) {
+                System.out.println(transaction.toString());
+            }
         }
     }
 
@@ -55,5 +68,12 @@ public class BankAccount {
 
     public double getBalance() {
         return balance;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactionHistory.add(transaction);
+        if (transaction.getAmount() > 0 && !accountNumber.equals(transaction.getRecipientAccountNumber())) {
+            transaction.setDescription("Fund transfer from " + transaction.getSenderAccountNumber());
+        }
     }
 }
